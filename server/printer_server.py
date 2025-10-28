@@ -3,8 +3,8 @@ import time
 import random
 from concurrent import futures
 import grpc
-import printing_pb2
-import printing_pb2_grpc
+from protocol import printing_pb2
+from protocol import printing_pb2_grpc
 
 class PrintingServiceServicer(printing_pb2_grpc.PrintingServiceServicer):
     def SendToPrinter(self, request, context):
