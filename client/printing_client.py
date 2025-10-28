@@ -123,6 +123,7 @@ class PrintingClient:
             time.sleep(3)
 
     def _auto_print_generator(self):
+        time.sleep(5)
         while True:
             # espera intervalo aleatório 4-8s
             time.sleep(random.uniform(4, 8))
