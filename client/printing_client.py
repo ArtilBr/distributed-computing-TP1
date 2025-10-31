@@ -1,11 +1,10 @@
-# printing_client.py
 import threading
 import time
 import random
 import grpc
 from concurrent import futures
-from protocol import printing_pb2
-from protocol import printing_pb2_grpc
+import printing_pb2
+import printing_pb2_grpc
 from google.protobuf import empty_pb2
 import argparse
 
@@ -123,7 +122,6 @@ class PrintingClient:
             time.sleep(3)
 
     def _auto_print_generator(self):
-        time.sleep(5)
         while True:
             # espera intervalo aleatório 4-8s
             time.sleep(random.uniform(4, 8))
