@@ -1,39 +1,35 @@
-# printer_server.py
 import time
-import random 
-from concurrent import futures
+import argparse
 import grpc
+from concurrent import futures
 
-from protocol import printing_pb2
-from protocol import printing_pb2_grpc
+import printing_pb2
+import printing_pb2_grpc
 
-class PrintingServiceServicer(printing_pb2_grpc.PrintingServiceServicer):
+
+class PrintingServiceImpl(printing_pb2_grpc.PrintingServiceServicer):
     def SendToPrinter(self, request, context):
-        # A impressão 
-        print(f"[TS: {request.lamport_timestamp}] CLIENTE {request.client_id}: {request.message_content}")
-        
-        # Simula tempo de impressão 
-        time.sleep(random.uniform(2, 3))
-        
-        # Cria a resposta
-        resp = printing_pb2.PrintResponse(
+        # Simula impressão
+        print(f"[TS: {request.lamport_timestamp}] CLIENTE {request.client_id} (req #{request.request_number}): {request.message_content}")
+        time.sleep(2.0)  # delay de impressão
+        return printing_pb2.PrintResponse(
             success=True,
-            confirmation_message=f"Impressão concluída para cliente {request.client_id}",
-            # Ecoa o timestamp do cliente 
-            lamport_timestamp=request.lamport_timestamp 
+            confirmation_message=f"Impresso (cliente {request.client_id}, req {request.request_number})",
+            lamport_timestamp=int(time.time())  # timestamp “real” só como informação
         )
-        return resp
 
-def serve(port=50051):
+
+def serve(port: int):
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    printing_pb2_grpc.add_PrintingServiceServicer_to_server(PrintingServiceServicer(), server)
-    server.add_insecure_port(f'[::]:{port}')
+    printing_pb2_grpc.add_PrintingServiceServicer_to_server(PrintingServiceImpl(), server)
+    server.add_insecure_port(f"[::]:{port}")
     server.start()
-    print(f"✅ Printer server rodando na porta :{port}")
-    try:
-        server.wait_for_termination()
-    except KeyboardInterrupt:
-        print("Printer server encerrado.")
+    print(f"[Printer] Servidor burro iniciado na porta {port}")
+    server.wait_for_termination()
+
 
 if __name__ == "__main__":
-    serve()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--port", type=int, default=50051)
+    args = parser.parse_args()
+    serve(args.port)
