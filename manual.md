@@ -1,4 +1,4 @@
-# ⚙️ Manual Simples de Instalação e Execução  
+# Manual de Instalação e Execução  
 **Sistema Distribuído de Impressão — Ricart–Agrawala + Lamport**
 
 ---
@@ -32,12 +32,12 @@ Isso instalará os pacotes:
 O projeto usa um arquivo `.proto` para definir as mensagens e serviços.  
 Antes de rodar o sistema, é necessário gerar os arquivos Python correspondentes.
 
-### 🔹 Windows (PowerShell ou CMD)
+###  Windows (PowerShell ou CMD)
 ```powershell
 python -m grpc_tools.protoc -I proto --python_out=. --grpc_python_out=. proto/distributed_printing.proto
 ```
 
-### 🔹 Linux / macOS / WSL
+###  Linux / macOS / WSL
 ```bash
 python -m grpc_tools.protoc   -I proto   --python_out=.   --grpc_python_out=.   proto/distributed_printing.proto
 ```
@@ -69,7 +69,7 @@ Servidor de impressão burro rodando em 0.0.0.0:50051
 
 ---
 
-### 🤝 Iniciando os Clientes
+###  Iniciando os Clientes
 Cada cliente deve rodar em um terminal diferente.
 
 Exemplo com **3 clientes**:
