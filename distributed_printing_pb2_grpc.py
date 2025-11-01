@@ -3,10 +3,9 @@
 import grpc
 import warnings
 
-from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
-from . import printing_pb2 as printing__pb2
+import distributed_printing_pb2 as distributed__printing__pb2
 
-GRPC_GENERATED_VERSION = '1.76.0'
+GRPC_GENERATED_VERSION = '1.66.1'
 GRPC_VERSION = grpc.__version__
 _version_not_supported = False
 
@@ -19,7 +18,7 @@ except ImportError:
 if _version_not_supported:
     raise RuntimeError(
         f'The grpc package installed is at version {GRPC_VERSION},'
-        + ' but the generated code in printing_pb2_grpc.py depends on'
+        + f' but the generated code in distributed_printing_pb2_grpc.py depends on'
         + f' grpcio>={GRPC_GENERATED_VERSION}.'
         + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
         + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
@@ -27,7 +26,8 @@ if _version_not_supported:
 
 
 class PrintingServiceStub(object):
-    """Missing associated documentation comment in .proto file."""
+    """Serviço no servidor de impressão BURRO
+    """
 
     def __init__(self, channel):
         """Constructor.
@@ -37,13 +37,14 @@ class PrintingServiceStub(object):
         """
         self.SendToPrinter = channel.unary_unary(
                 '/distributed_printing.PrintingService/SendToPrinter',
-                request_serializer=printing__pb2.PrintRequest.SerializeToString,
-                response_deserializer=printing__pb2.PrintResponse.FromString,
+                request_serializer=distributed__printing__pb2.PrintRequest.SerializeToString,
+                response_deserializer=distributed__printing__pb2.PrintResponse.FromString,
                 _registered_method=True)
 
 
 class PrintingServiceServicer(object):
-    """Missing associated documentation comment in .proto file."""
+    """Serviço no servidor de impressão BURRO
+    """
 
     def SendToPrinter(self, request, context):
         """Missing associated documentation comment in .proto file."""
@@ -56,8 +57,8 @@ def add_PrintingServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'SendToPrinter': grpc.unary_unary_rpc_method_handler(
                     servicer.SendToPrinter,
-                    request_deserializer=printing__pb2.PrintRequest.FromString,
-                    response_serializer=printing__pb2.PrintResponse.SerializeToString,
+                    request_deserializer=distributed__printing__pb2.PrintRequest.FromString,
+                    response_serializer=distributed__printing__pb2.PrintResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -68,7 +69,8 @@ def add_PrintingServiceServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class PrintingService(object):
-    """Missing associated documentation comment in .proto file."""
+    """Serviço no servidor de impressão BURRO
+    """
 
     @staticmethod
     def SendToPrinter(request,
@@ -85,8 +87,8 @@ class PrintingService(object):
             request,
             target,
             '/distributed_printing.PrintingService/SendToPrinter',
-            printing__pb2.PrintRequest.SerializeToString,
-            printing__pb2.PrintResponse.FromString,
+            distributed__printing__pb2.PrintRequest.SerializeToString,
+            distributed__printing__pb2.PrintResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -99,7 +101,8 @@ class PrintingService(object):
 
 
 class MutualExclusionServiceStub(object):
-    """Missing associated documentation comment in .proto file."""
+    """Serviços entre CLIENTES (cada cliente expõe isso)
+    """
 
     def __init__(self, channel):
         """Constructor.
@@ -109,18 +112,19 @@ class MutualExclusionServiceStub(object):
         """
         self.RequestAccess = channel.unary_unary(
                 '/distributed_printing.MutualExclusionService/RequestAccess',
-                request_serializer=printing__pb2.AccessRequest.SerializeToString,
-                response_deserializer=printing__pb2.AccessResponse.FromString,
+                request_serializer=distributed__printing__pb2.AccessRequest.SerializeToString,
+                response_deserializer=distributed__printing__pb2.AccessResponse.FromString,
                 _registered_method=True)
         self.ReleaseAccess = channel.unary_unary(
                 '/distributed_printing.MutualExclusionService/ReleaseAccess',
-                request_serializer=printing__pb2.AccessRelease.SerializeToString,
-                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                request_serializer=distributed__printing__pb2.AccessRelease.SerializeToString,
+                response_deserializer=distributed__printing__pb2.Empty.FromString,
                 _registered_method=True)
 
 
 class MutualExclusionServiceServicer(object):
-    """Missing associated documentation comment in .proto file."""
+    """Serviços entre CLIENTES (cada cliente expõe isso)
+    """
 
     def RequestAccess(self, request, context):
         """Missing associated documentation comment in .proto file."""
@@ -139,13 +143,13 @@ def add_MutualExclusionServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'RequestAccess': grpc.unary_unary_rpc_method_handler(
                     servicer.RequestAccess,
-                    request_deserializer=printing__pb2.AccessRequest.FromString,
-                    response_serializer=printing__pb2.AccessResponse.SerializeToString,
+                    request_deserializer=distributed__printing__pb2.AccessRequest.FromString,
+                    response_serializer=distributed__printing__pb2.AccessResponse.SerializeToString,
             ),
             'ReleaseAccess': grpc.unary_unary_rpc_method_handler(
                     servicer.ReleaseAccess,
-                    request_deserializer=printing__pb2.AccessRelease.FromString,
-                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                    request_deserializer=distributed__printing__pb2.AccessRelease.FromString,
+                    response_serializer=distributed__printing__pb2.Empty.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -156,7 +160,8 @@ def add_MutualExclusionServiceServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class MutualExclusionService(object):
-    """Missing associated documentation comment in .proto file."""
+    """Serviços entre CLIENTES (cada cliente expõe isso)
+    """
 
     @staticmethod
     def RequestAccess(request,
@@ -173,8 +178,8 @@ class MutualExclusionService(object):
             request,
             target,
             '/distributed_printing.MutualExclusionService/RequestAccess',
-            printing__pb2.AccessRequest.SerializeToString,
-            printing__pb2.AccessResponse.FromString,
+            distributed__printing__pb2.AccessRequest.SerializeToString,
+            distributed__printing__pb2.AccessResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -200,8 +205,8 @@ class MutualExclusionService(object):
             request,
             target,
             '/distributed_printing.MutualExclusionService/ReleaseAccess',
-            printing__pb2.AccessRelease.SerializeToString,
-            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            distributed__printing__pb2.AccessRelease.SerializeToString,
+            distributed__printing__pb2.Empty.FromString,
             options,
             channel_credentials,
             insecure,
