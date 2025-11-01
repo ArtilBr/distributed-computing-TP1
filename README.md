@@ -76,11 +76,15 @@ A deferência explícita via bloqueio no RPC `RequestAccess` simplifica o contro
 ### 4.1 Cenário 1 — Funcionamento básico
 - Um cliente ativo e um servidor de impressão.  
 - O cliente imprime normalmente com timestamps crescentes e confirmações corretas.
+<img width="3278" height="1980" alt="image" src="https://github.com/user-attachments/assets/a1bbb12c-754a-415a-b664-922d3affafba" />
+
 
 ### 4.2 Cenário 2 — Concorrência
 - Três clientes executando simultaneamente.  
 - Somente um entra em estado `HELD` de cada vez.  
 - A ordem de impressão segue o menor `(timestamp, id)`, comprovando a exclusão mútua.
+<img width="2887" height="743" alt="image" src="https://github.com/user-attachments/assets/1a44cf6f-1b79-4375-b1c2-88a7ed412bb6" />
+
 
 ### 4.3 Cenário 3 — Falha de cliente
 - Um cliente é encerrado durante a execução.  
