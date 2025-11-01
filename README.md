@@ -69,9 +69,6 @@ O algoritmo implementado garante:
 
 A deferência explícita via bloqueio no RPC `RequestAccess` simplifica o controle e evita a necessidade de filas explícitas.
 
-Complexidade de mensagens:  
-`2 × (N - 1)` mensagens por operação (Requests + ACKs) e `(N - 1)` opcionais de `ReleaseAccess`.
-
 ---
 
 ## 4. Testes Realizados
@@ -91,16 +88,3 @@ Complexidade de mensagens:
 
 ---
 
-## 5. Conclusão
-
-O sistema distribui corretamente o controle de acesso ao recurso compartilhado (impressora) sem coordenador central, utilizando:
-- **gRPC** para comunicação,
-- **Ricart–Agrawala** para exclusão mútua distribuída,
-- **Relógios de Lamport** para ordenação global.
-
-Os testes comprovaram que:
-- A exclusão mútua é mantida mesmo com concorrência.
-- A ordem de acesso é determinística e justa.
-- O sistema é tolerante a falhas simples e opera de forma consistente.
-
----
