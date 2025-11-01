@@ -1,4 +1,4 @@
-# 🧠 Relatório Técnico — Sistema Distribuído de Impressão  
+# Relatório Técnico — Sistema Distribuído de Impressão - Arthur Oliveira e Mateus Gontijo
 **Baseado no Algoritmo de Ricart–Agrawala e Relógios de Lamport**
 
 ---
